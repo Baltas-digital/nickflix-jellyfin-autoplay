@@ -1,0 +1,29 @@
+# NickFlix Jellyfin Autoplay (Fully Kiosk)
+
+Automatically presses **Play / Resume** on a Jellyfin series page  
+when launched from **Home Assistant** using a URL trigger flag.
+
+## How it works
+- Home Assistant opens Jellyfin with `nickflix_autoplay=1`
+- Fully Kiosk injects this JavaScript on page load
+- Script waits 5 seconds, finds the Play button, clicks it
+- Trigger flag is removed so normal browsing is unaffected
+
+## Requirements
+- Android tablet
+- Fully Kiosk Browser
+- Jellyfin Web UI
+- Home Assistant (optional, but recommended)
+
+## Usage
+1. Enable **Custom JavaScript on page load** in Fully Kiosk
+2. Paste contents of `jellyfin-autoplay.js`
+3. Launch Jellyfin with:
+
+http://<jellyfin>/web/#/details?id=<SERIES_ID>&nickflix_autoplay=1
+
+
+## Notes
+- Safe for browsing (only triggers with the URL flag)
+- Designed for car / kiosk environments
+- Tested with Jellyfin + Fully Kiosk

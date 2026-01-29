@@ -1,0 +1,27 @@
+(function autoPlayNickFlix() {
+  // Only run when launched by HA
+  if (!window.location.href.includes("nickflix_autoplay=1")) return;
+
+  const START_DELAY = 5000; // 5 seconds
+  const CHECK_INTERVAL = 500;
+
+  setTimeout(function waitForPlayButton() {
+    const btn =
+      document.querySelector('button[data-action="resume"]') ||
+      document.querySelector('button.btnPlay') ||
+      document.querySelector('span.play_arrow')?.closest('button');
+
+    if (btn) {
+      btn.click();
+
+      // Remove the flag so browsing later won't retrigger
+      history.replaceState(
+        {},
+        "",
+        window.location.href.replace(/&nickflix_autoplay=1/, "")
+      );
+    } else {
+      setTimeout(waitForPlayButton, CHECK_INTERVAL);
+    }
+  }, START_DELAY);
+})();
